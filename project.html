@@ -1,113 +1,90 @@
-<html>
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Test Vue Js</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+    </div>
 
-</head>
-<body>
-<form name="myForm" >
-  <input type="text" name="name">
-  <input type="text" name="pass">
-<button type="button" onclick="register()">Submit</button>
-</form>
+    <form name="myForm" >
+      <input type="text" name="name">
+      <input type="text" name="pass">
+    <button type="button" onclick="register()">Submit</button>
+    </form>
 
-<ul id="output">
-  <li>Vic</li>
-  <li>Pat</li>
-</ul>
-</body>
-<script>
-  function user(x,y){
-    this.name = x;
-    this.pass = y;
-  }
+    <ul id="output">
+      <li>Vic</li>
+      <li>Pat</li>
+    </ul>
+  </body>
 
-  var nodelist = document.getElementsByTagName('li');
-  var i;
-  for(i=0;i<nodelist.length;i++){
-    var delbtn = document.createElement("input");
-    var btntext = document.createTextNode("delete");
-    delbtn.setAttribute("type", "button");
-    delbtn.setAttribute("class", "delete");
-    delbtn.setAttribute("value", "delete");
-    delbtn.appendChild(btntext);
-    nodelist[i].appendChild(delbtn);
-
-    var btn = document.createElement("input");
-    var nde = document.createTextNode("edit");
-    btn.setAttribute("type", "button");
-    btn.setAttribute("class", "edit");
-    btn.setAttribute("value", "edit");
-    btn.appendChild(nde);
-    nodelist[i].appendChild(btn);
-  }
-
-  var deletes = document.getElementsByClassName('delete');
-  var i;
-  for(i=0; i<deletes.length;i++){
-    deletes[i].addEventListener("click", function(){
-      var div = this.parentElement;
-      div.style.display = "none";
-    });
-  }
-
-  var edit = document.getElementsByClassName('edit');
-  for(i=0;i<edit.length;i++){
-    edit[i].addEventListener("click", function(){
-      if(this.value = "edit"){
-      this.value = "done";
-    }else if (this.value = "done"){
-      this.value = "edit";
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    function user(x,y){
+      this.name = x;
+      this.pass = y;
     }
-    var div = this.parentElement;
-    console.log(div.value);
 
-    //console.log(this.parentElement);
-    //var div = this.parentElement;
-    //div.innerHTML = "fuck";
+    var app = new Vue({
+      el: "#app",
+      data: {
+        message: 'hello!'
+      }
     });
-  }
-/*
-  var edit = document.getElementsByClassName('edit');
-  var i;
-  for(i=0;i<edit.length;i++){
-    edit[i].addEventListener("click",function(){
-      var div = this.parentElement;
-      this.style.display = "none";
-      var btn = document.createElement('button');
-      var node = document.createTextNode('done');
-      btn.setAttribute("class", "done");
-      btn.appendChild(node);
-      div.appendChild(btn);
 
-    });
-  }
+    var nodelist = document.getElementsByTagName('li');
+    var i;
+    for(i=0;i<nodelist.length;i++){
+      var delbtn = document.createElement("button");
+      var btntext = document.createTextNode("delete");
+      delbtn.setAttribute("type", "button");
+      delbtn.setAttribute("class", "delete");
+      delbtn.setAttribute("value", "delete");
+      delbtn.appendChild(btntext);
+      nodelist[i].appendChild(delbtn);
 
-  var done = document.getElementsByClassName('done');
-  var i;
-  for(i=0;i<done.length;i++){
-    done[i].addEventListener("click", function(){
+      var btn = document.createElement("input");
+      var nde = document.createTextNode("edit");
+      btn.setAttribute("type", "button");
+      btn.setAttribute("class", "edit");
+      btn.setAttribute("value", "edit");
+      btn.appendChild(nde);
+      nodelist[i].appendChild(btn);
+    }
 
-    });
-  }
-*/
+    function register(){
+      var x = document.forms["myForm"]["name"].value;
+      var y = document.forms["myForm"]["pass"].value;
+      var newUser = new user(x,y);
 
-  function register(){
-    var x = document.forms["myForm"]["name"].value;
-    var y = document.forms["myForm"]["pass"].value;
-    var newUser = new user(x,y);
+      var list = document.createElement("li");
+      var node = document.createTextNode(x);
+      var button = document.createElement("button");
 
-    var list = document.createElement("li");
-    var node = document.createTextNode(x);
-    var button = document.createElement("button");
+      var delbtn = document.createElement("button");
+      var btntext = document.createTextNode("delete");
 
-    var delbtn = document.createElement("button");
-    var btntext = document.createTextNode("delete");
+      button.appendChild(btntext);
+      button.setAttribute("class","delete");
+      list.appendChild(node);
+      list.appendChild(button);
+      document.getElementById('output').appendChild(list);
 
-    button.appendChild(btntext);
-    button.setAttribute("class","delete");
-    list.appendChild(node);
-    list.appendChild(button);
-    document.getElementById('output').appendChild(list);
-
+      var deletes = document.getElementsByClassName('delete');
+      var i;
+      for(i=0; i<deletes.length;i++){
+        deletes[i].addEventListener("click", function(){
+          var div = this.parentElement;
+          div.style.display = "none";
+          console.log(this);
+        });
+      }
+    }
+    
+//this add event listener for preexisting list
     var deletes = document.getElementsByClassName('delete');
     var i;
     for(i=0; i<deletes.length;i++){
@@ -118,7 +95,5 @@
       });
     }
 
-  }
-
-</script>
+  </script>
 </html>
